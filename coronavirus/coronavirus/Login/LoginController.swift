@@ -22,13 +22,15 @@ class LoginController: UIViewController {
     }
     
     @IBAction func clickLogin(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "segueLoginToGreeting", sender: self)
     }
     
-    @IBAction func clickForgotPwd(_ sender: UIButton) {
+    @IBAction func clickForgotPassword(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "segueLoginToForgot", sender: self)
     }
-    
     
     @IBAction func clickSignUp(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "segueLoginToSignup", sender: self)
     }
     
     override func viewDidLoad() {
@@ -41,7 +43,5 @@ class LoginController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
