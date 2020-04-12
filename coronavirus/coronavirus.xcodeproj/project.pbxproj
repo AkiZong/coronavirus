@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A49E9052443BD81000331DB /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49E9042443BD81000331DB /* SignupController.swift */; };
 		1AD4F0952443A2BE00F86D78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0942443A2BE00F86D78 /* AppDelegate.swift */; };
 		1AD4F0972443A2BE00F86D78 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0962443A2BE00F86D78 /* LoginController.swift */; };
 		1AD4F09A2443A2BE00F86D78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AD4F0982443A2BE00F86D78 /* Main.storyboard */; };
@@ -14,7 +15,6 @@
 		1AD4F09F2443A2BE00F86D78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AD4F09D2443A2BE00F86D78 /* LaunchScreen.storyboard */; };
 		1AD4F0AA2443A2BE00F86D78 /* coronavirusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0A92443A2BE00F86D78 /* coronavirusTests.swift */; };
 		1AD4F0B52443A2BE00F86D78 /* coronavirusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0B42443A2BE00F86D78 /* coronavirusUITests.swift */; };
-		1AD4F0C62443AB1A00F86D78 /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0C52443AB1A00F86D78 /* SignupController.swift */; };
 		1AD4F0CA2443AB7500F86D78 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0C92443AB7500F86D78 /* ForgotPasswordController.swift */; };
 		1AD4F0CD2443ABB000F86D78 /* GreetingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0CC2443ABB000F86D78 /* GreetingController.swift */; };
 /* End PBXBuildFile section */
@@ -37,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A49E9042443BD81000331DB /* SignupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupController.swift; sourceTree = "<group>"; };
 		1AD4F0912443A2BE00F86D78 /* coronavirus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coronavirus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD4F0942443A2BE00F86D78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AD4F0962443A2BE00F86D78 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		1AD4F0B02443A2BE00F86D78 /* coronavirusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = coronavirusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD4F0B42443A2BE00F86D78 /* coronavirusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coronavirusUITests.swift; sourceTree = "<group>"; };
 		1AD4F0B62443A2BE00F86D78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1AD4F0C52443AB1A00F86D78 /* SignupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignupController.swift; path = ../../../SignupController.swift; sourceTree = "<group>"; };
 		1AD4F0C92443AB7500F86D78 /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
 		1AD4F0CC2443ABB000F86D78 /* GreetingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A49E9032443BD6B000331DB /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				1A49E9042443BD81000331DB /* SignupController.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
 		1AD4F0882443A2BE00F86D78 = {
 			isa = PBXGroup;
 			children = (
@@ -103,9 +111,9 @@
 		1AD4F0932443A2BE00F86D78 /* coronavirus */ = {
 			isa = PBXGroup;
 			children = (
+				1A49E9032443BD6B000331DB /* Signup */,
 				1AD4F0CB2443AB9600F86D78 /* Greeting */,
 				1AD4F0C82443AB5700F86D78 /* ForgotPassword */,
-				1AD4F0C32443A2E100F86D78 /* Signup */,
 				1AD4F0942443A2BE00F86D78 /* AppDelegate.swift */,
 				1AD4F0C22443A2D300F86D78 /* Login */,
 				1AD4F0982443A2BE00F86D78 /* Main.storyboard */,
@@ -140,14 +148,6 @@
 				1AD4F0962443A2BE00F86D78 /* LoginController.swift */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		1AD4F0C32443A2E100F86D78 /* Signup */ = {
-			isa = PBXGroup;
-			children = (
-				1AD4F0C52443AB1A00F86D78 /* SignupController.swift */,
-			);
-			path = Signup;
 			sourceTree = "<group>";
 		};
 		1AD4F0C82443AB5700F86D78 /* ForgotPassword */ = {
@@ -300,10 +300,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AD4F0C62443AB1A00F86D78 /* SignupController.swift in Sources */,
 				1AD4F0CA2443AB7500F86D78 /* ForgotPasswordController.swift in Sources */,
 				1AD4F0972443A2BE00F86D78 /* LoginController.swift in Sources */,
 				1AD4F0CD2443ABB000F86D78 /* GreetingController.swift in Sources */,
+				1A49E9052443BD81000331DB /* SignupController.swift in Sources */,
 				1AD4F0952443A2BE00F86D78 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

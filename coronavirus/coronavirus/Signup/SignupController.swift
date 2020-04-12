@@ -10,7 +10,7 @@ import UIKit
 
 class SignupController: UIViewController {
     
-
+    
     @IBOutlet weak var firstName: UITextField!
     func setupFirstName() {
         firstName.placeholder = "First Name"
@@ -60,3 +60,4 @@ class SignupController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
