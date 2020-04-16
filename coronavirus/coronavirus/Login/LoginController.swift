@@ -12,16 +12,22 @@ class LoginController: UIViewController {
     
     
     @IBOutlet weak var emailTextField: UITextField!
-    func setupEmailField() {
-        emailTextField.placeholder = "Email"
+    func setupEmailField() -> String {
+        return emailTextField.text!
+        
     }
     
     @IBOutlet weak var passwordTextField: UITextField!
-    func setupPasswordField() {
-        passwordTextField.placeholder = "Password"
+    func setupPasswordField() -> String {
+        return passwordTextField.text!
     }
     
     @IBAction func clickLogin(_ sender: UIButton) {
+        let email = setupEmailField()
+        let password = setupPasswordField()
+        print ("login email: \(email)")
+        print ("login pwd: \(password)")
+        // check if email and password already in database?
         self.performSegue(withIdentifier: "segueLoginToGreeting", sender: self)
     }
     
@@ -35,8 +41,6 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupEmailField()
-        setupPasswordField()
     }
 
     override func didReceiveMemoryWarning() {
