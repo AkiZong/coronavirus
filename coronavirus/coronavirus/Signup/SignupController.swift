@@ -54,16 +54,77 @@ class SignupController: UIViewController {
         print ("sign up: \(password)")
         print ("sign up: \(sex)")
         print ("sign up: \(age)")
-        //addNewUser()
+        let newUserInfo: Dictionary<String,String> = ["firstName": first_name, "lastName": last_name, "email": email, "password": password, "sex": sex, "age": String(age)]
+        let fileURL = createCSV(fileName: "allUsers.csv")
+        print (fileURL)
+        checkFile(fileName: "allUsers.csv")
+        addNewUser(fromURL: fileURL, from: newUserInfo)
     }
     
     // TO DO
     // if csv not created, create it
     // if email already in csv, warning message, otherwise, add to csv
-    // func addNewUser() {
-        // let csvString = "\("First Name"),\("Last Name"),\("Email"),\("Password"),\("Sex"),\("Age")\n\n"
-    // }
+    func createCSV(fileName: String) -> URL {
+        let csvString = "\("First Name"),\("Last Name"),\("Email"),\("Password"),\("Sex"),\("Age")\n\n"
+        let fileManager = FileManager.default
+        var fileURL: URL!
+        do {
+            let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
+            fileURL = path.appendingPathComponent(fileName)
+            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
+            print ("created --> \(fileURL)")
+        } catch {
+            print("error creating file \(fileName)")
+        }
+        return fileURL
+    }
     
+    func addNewUser(fromURL fileURL: URL, from userInfoArray: Dictionary<String, String>) {
+        var csvString = ""
+        if let firstName = userInfoArray["firstName"] {
+            csvString = csvString.appending("\(firstName),")
+        }
+        if let lastName = userInfoArray["lastName"] {
+            csvString = csvString.appending("\(lastName),")
+        }
+        if let email = userInfoArray["email"] {
+            csvString = csvString.appending("\(email),")
+        }
+        if let password = userInfoArray["password"] {
+            csvString = csvString.appending("\(password),")
+        }
+        if let sex = userInfoArray["sex"] {
+            csvString = csvString.appending("\(sex),")
+        }
+        if let age = userInfoArray["age"] {
+            csvString = csvString.appending("\(age)")
+        }
+        print (csvString)
+        do {
+            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
+        }
+        catch {
+            print ("Failed to write to \(fileURL)")
+            
+        }
+    }
+    
+    func checkFile(fileName: String) {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        if let pathComponent = url.appendingPathComponent(fileName) {
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                print("FILE AVAILABLE")
+            } else {
+                print("FILE NOT AVAILABLE")
+            }
+        } else {
+            print("FILE PATH NOT AVAILABLE")
+        }
+    }
+
     @IBAction func signupBackToLogin(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueSignupToLogin", sender: self)
     }
