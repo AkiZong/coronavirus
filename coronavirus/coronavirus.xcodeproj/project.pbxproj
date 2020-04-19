@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A49E9052443BD81000331DB /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49E9042443BD81000331DB /* SignupController.swift */; };
+		1A588E88244C18CA008FCEEA /* hello.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A588E87244C18C4008FCEEA /* hello.txt */; };
 		1AD4F0952443A2BE00F86D78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0942443A2BE00F86D78 /* AppDelegate.swift */; };
 		1AD4F0972443A2BE00F86D78 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4F0962443A2BE00F86D78 /* LoginController.swift */; };
 		1AD4F09A2443A2BE00F86D78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AD4F0982443A2BE00F86D78 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		1A49E9042443BD81000331DB /* SignupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupController.swift; sourceTree = "<group>"; };
+		1A588E87244C18C4008FCEEA /* hello.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = hello.txt; sourceTree = "<group>"; };
 		1AD4F0912443A2BE00F86D78 /* coronavirus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coronavirus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AD4F0942443A2BE00F86D78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AD4F0962443A2BE00F86D78 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,13 @@
 			path = Signup;
 			sourceTree = "<group>";
 		};
+		1A588E89244C1924008FCEEA /* database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = database;
+			sourceTree = "<group>";
+		};
 		1AD4F0882443A2BE00F86D78 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +120,8 @@
 		1AD4F0932443A2BE00F86D78 /* coronavirus */ = {
 			isa = PBXGroup;
 			children = (
+				1A588E89244C1924008FCEEA /* database */,
+				1A588E87244C18C4008FCEEA /* hello.txt */,
 				1A49E9032443BD6B000331DB /* Signup */,
 				1AD4F0CB2443AB9600F86D78 /* Greeting */,
 				1AD4F0C82443AB5700F86D78 /* ForgotPassword */,
@@ -273,6 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A588E88244C18CA008FCEEA /* hello.txt in Resources */,
 				1AD4F09F2443A2BE00F86D78 /* LaunchScreen.storyboard in Resources */,
 				1AD4F09C2443A2BE00F86D78 /* Assets.xcassets in Resources */,
 				1AD4F09A2443A2BE00F86D78 /* Main.storyboard in Resources */,

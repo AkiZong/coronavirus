@@ -48,81 +48,96 @@ class SignupController: UIViewController {
         let password = setupPassword()
         let sex = setupSex().uppercased()
         let age = setupAge()
-        print ("sign up: \(first_name)")
-        print ("sign up: \(last_name)")
-        print ("sign up: \(email)")
-        print ("sign up: \(password)")
-        print ("sign up: \(sex)")
-        print ("sign up: \(age)")
-        let newUserInfo: Dictionary<String,String> = ["firstName": first_name, "lastName": last_name, "email": email, "password": password, "sex": sex, "age": String(age)]
-        let fileURL = createCSV(fileName: "allUsers.csv")
-        print (fileURL)
-        checkFile(fileName: "allUsers.csv")
-        addNewUser(fromURL: fileURL, from: newUserInfo)
+        print ("new user first name: \(first_name)")
+        print ("new user last name: \(last_name)")
+        print ("new user email: \(email)")
+        print ("new user password: \(password)")
+        print ("new user sex: \(sex)")
+        print ("new user age: \(age)")
+        let newUserInfoDict: Dictionary<String,String> = ["firstName": first_name, "lastName": last_name, "email": email, "password": password, "sex": sex, "age": String(age)]
+        let newUserInfo: String = parseUserInfo(userInfo: newUserInfoDict)
+        
+        writeToCSV(fileName: "allUsers.csv", userInfo: newUserInfo)
+        
+        //readFile()
     }
     
     // TO DO
     // if csv not created, create it
     // if email already in csv, warning message, otherwise, add to csv
-    func createCSV(fileName: String) -> URL {
-        let csvString = "\("First Name"),\("Last Name"),\("Email"),\("Password"),\("Sex"),\("Age")\n\n"
-        let fileManager = FileManager.default
-        var fileURL: URL!
+    func createCSV(fileUrl: URL, csvString: String) {
         do {
-            let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
-            fileURL = path.appendingPathComponent(fileName)
-            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
-            print ("created --> \(fileURL)")
+            try csvString.write(to: fileUrl, atomically: true, encoding: .utf8)
+            print("created \(fileUrl)")
         } catch {
-            print("error creating file \(fileName)")
+            print("Failed to create \(fileUrl)")
         }
-        return fileURL
     }
     
-    func addNewUser(fromURL fileURL: URL, from userInfoArray: Dictionary<String, String>) {
-        var csvString = ""
+    func writeToCSV(fileName: String, userInfo: String) {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)
+        let dirUrl = paths[0]
+        print("--- dir ulr: \(dirUrl)")
+        let fileUrl = dirUrl.appendingPathComponent(fileName)
+        let filePath = fileUrl.path
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: filePath) {
+            // add new user here
+            print("-- file \(fileName) exists, add new user")
+            print("-- new user: \(userInfo)")
+            do {
+                let fileHandle = try FileHandle(forUpdating: fileUrl)
+                fileHandle.seekToEndOfFile()
+                let data = userInfo.data(using: .utf8)
+                fileHandle.write(data!)
+            } catch {
+                print("Failed to write to \(fileName)")
+            }
+            
+        } else {
+            // create allUser.csv
+            print("-- file not found, create file first")
+            let categories = "\("First Name"),\("Last Name"),\("Email"),\("Password"),\("Sex"),\("Age")\n"
+            createCSV(fileUrl: fileUrl, csvString: categories)
+        }
+    }
+    
+    func parseUserInfo(userInfo userInfoArray: Dictionary<String, String>) -> String {
+        var userInfo = ""
         if let firstName = userInfoArray["firstName"] {
-            csvString = csvString.appending("\(firstName),")
+            userInfo = userInfo.appending("\(firstName),")
         }
         if let lastName = userInfoArray["lastName"] {
-            csvString = csvString.appending("\(lastName),")
+            userInfo = userInfo.appending("\(lastName),")
         }
         if let email = userInfoArray["email"] {
-            csvString = csvString.appending("\(email),")
+            userInfo = userInfo.appending("\(email),")
         }
         if let password = userInfoArray["password"] {
-            csvString = csvString.appending("\(password),")
+            userInfo = userInfo.appending("\(password),")
         }
         if let sex = userInfoArray["sex"] {
-            csvString = csvString.appending("\(sex),")
+            userInfo = userInfo.appending("\(sex),")
         }
         if let age = userInfoArray["age"] {
-            csvString = csvString.appending("\(age)")
+            userInfo = userInfo.appending("\(age)")
         }
-        print (csvString)
-        do {
-            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
-        }
-        catch {
-            print ("Failed to write to \(fileURL)")
-            
-        }
+        print(userInfo)
+        return userInfo
     }
     
-    func checkFile(fileName: String) {
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let url = NSURL(fileURLWithPath: path)
-        if let pathComponent = url.appendingPathComponent(fileName) {
-            let filePath = pathComponent.path
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath) {
-                print("FILE AVAILABLE")
-            } else {
-                print("FILE NOT AVAILABLE")
-            }
-        } else {
-            print("FILE PATH NOT AVAILABLE")
+    func readFile() {
+        let fileURLProject = Bundle.main.path(forResource: "hello", ofType: "txt")
+        //let fileURLProject = Bundle.main.path(forResource: "hello", ofType: "txt")
+        print("fileurl: \(String(describing: fileURLProject))")
+        var readString = ""
+        do {
+            readString = try String(contentsOfFile: fileURLProject!, encoding: String.Encoding.utf8)
+        } catch let error as NSError {
+            print("Failed to read file")
+            print(error)
         }
+        print(readString)
     }
 
     @IBAction func signupBackToLogin(_ sender: UIButton) {
