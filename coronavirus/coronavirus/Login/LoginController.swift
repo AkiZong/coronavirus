@@ -9,26 +9,29 @@
 import UIKit
 
 class LoginController: UIViewController {
-    
+    var coronavirus = Coronavirus()
     
     @IBOutlet weak var emailTextField: UITextField!
-    func setupEmailField() -> String {
-        return emailTextField.text!
-        
-    }
     
     @IBOutlet weak var passwordTextField: UITextField!
-    func setupPasswordField() -> String {
-        return passwordTextField.text!
+    
+    @IBOutlet weak var warning: UILabel!
+    var warningMsg = "" {
+        didSet {
+            warning.text = "\(warningMsg)"
+        }
     }
     
     @IBAction func clickLogin(_ sender: UIButton) {
-        let email = setupEmailField()
-        let password = setupPasswordField()
-        print ("login email: \(email)")
-        print ("login pwd: \(password)")
+        let email = emailTextField.text!
+        let password = passwordTextField.text!
         // check if email and password already in database?
-        self.performSegue(withIdentifier: "segueLoginToGreeting", sender: self)
+        let correntCredentials = coronavirus.checkCredentials(email: email, password: password)
+        if correntCredentials == true {
+            self.performSegue(withIdentifier: "segueLoginToGreeting", sender: self)
+        } else {
+            warningMsg = "* Wrong email or password"
+        }
     }
     
     @IBAction func clickForgotPassword(_ sender: UIButton) {

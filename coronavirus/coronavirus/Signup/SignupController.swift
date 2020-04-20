@@ -9,96 +9,59 @@
 import UIKit
 
 class SignupController: UIViewController {
+    var coronavirus = Coronavirus()
+    
+    @IBOutlet weak var firstNameTextField: UITextField!
+    
+    @IBOutlet weak var lastNameTextField: UITextField!
+
+    @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBOutlet weak var sexTextField: UITextField!
+    
+    @IBOutlet weak var ageTextField: UITextField!
     
     
-    @IBOutlet weak var firstName: UITextField!
-    func setupFirstName() -> String {
-        return firstName.text!
-    }
-    
-    @IBOutlet weak var lastName: UITextField!
-    func setupLastName() -> String {
-        return lastName.text!
-    }
-    
-    @IBOutlet weak var email: UITextField!
-    func setupEmail() -> String {
-        return email.text!
-    }
-    
-    @IBOutlet weak var password: UITextField!
-    func setupPassword() -> String {
-        return password.text!
-    }
-    
-    @IBOutlet weak var sex: UITextField!
-    func setupSex() -> String {
-        return sex.text!
-    }
-    
-    @IBOutlet weak var age: UITextField!
-    func setupAge() -> String {
-        return age.text!
-    }
-    
-    @IBAction func joinNow(_ sender: UIButton) {
-        let first_name = setupFirstName()
-        let last_name = setupLastName()
-        let email = setupEmail()
-        let password = setupPassword()
-        let sex = setupSex().uppercased()
-        let age = setupAge()
-        print ("new user first name: \(first_name)")
-        print ("new user last name: \(last_name)")
-        print ("new user email: \(email)")
-        print ("new user password: \(password)")
-        print ("new user sex: \(sex)")
-        print ("new user age: \(age)")
-        let newUserInfoDict: Dictionary<String,String> = ["firstName": first_name, "lastName": last_name, "email": email, "password": password, "sex": sex, "age": String(age)]
-        let newUserInfo: String = parseUserInfo(userInfo: newUserInfoDict)
-        
-        writeToCSV(fileName: "allUsers.csv", userInfo: newUserInfo)
-        
-        //readFile()
-    }
-    
-    // TO DO
-    // if csv not created, create it
-    // if email already in csv, warning message, otherwise, add to csv
-    func createCSV(fileUrl: URL, csvString: String) {
-        do {
-            try csvString.write(to: fileUrl, atomically: true, encoding: .utf8)
-            print("created \(fileUrl)")
-        } catch {
-            print("Failed to create \(fileUrl)")
+    @IBOutlet weak var warning: UILabel!
+    var warningMsg = "" {
+        didSet {
+            warning.text = "\(warningMsg)"
         }
     }
+    var qualified = true
     
-    func writeToCSV(fileName: String, userInfo: String) {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)
-        let dirUrl = paths[0]
-        print("--- dir ulr: \(dirUrl)")
-        let fileUrl = dirUrl.appendingPathComponent(fileName)
-        let filePath = fileUrl.path
-        let fileManager = FileManager.default
-        if fileManager.fileExists(atPath: filePath) {
-            // add new user here
-            print("-- file \(fileName) exists, add new user")
-            print("-- new user: \(userInfo)")
-            do {
-                let fileHandle = try FileHandle(forUpdating: fileUrl)
-                fileHandle.seekToEndOfFile()
-                let data = userInfo.data(using: .utf8)
-                fileHandle.write(data!)
-            } catch {
-                print("Failed to write to \(fileName)")
-            }
-            
-        } else {
-            // create allUser.csv
-            print("-- file not found, create file first")
-            let categories = "\("First Name"),\("Last Name"),\("Email"),\("Password"),\("Sex"),\("Age")\n"
-            createCSV(fileUrl: fileUrl, csvString: categories)
+    @IBAction func joinNow(_ sender: UIButton) {
+        warningMsg = ""
+        let firstName = firstNameTextField.text!
+        if warningMsg == "" {
+            warningMsg = coronavirus.checkRequiredInput(Input: firstName, Field: "First Name")
+        }
+        let lastName = lastNameTextField.text!
+        if warningMsg == "" {
+            warningMsg = coronavirus.checkRequiredInput(Input: lastName, Field: "Last Name")
+        }
+        let email = emailTextField.text!
+        if warningMsg == "" {
+            warningMsg = coronavirus.checkRequiredInput(Input: email, Field: "Email")
+        }
+        let password = passwordTextField.text!
+        if warningMsg == "" {
+            warningMsg = coronavirus.checkRequiredInput(Input: password, Field: "Password")
+        }
+        let sex = sexTextField.text!.uppercased()
+        let age = ageTextField.text!
+        
+        let emailExist = coronavirus.checkEmail(Email: email)
+        if emailExist == true {
+            warningMsg = "* This email is already registered"
+        }
+        
+        if warningMsg == "" {
+            let newUserInfoDict: Dictionary<String,String> = ["firstName": firstName, "lastName": lastName, "email": email, "password": password, "sex": sex, "age": String(age)]
+            let newUserInfo: String = parseUserInfo(userInfo: newUserInfoDict)
+            coronavirus.writeToCSV(fileName: "allUsers.csv", userInfo: newUserInfo)
         }
     }
     
@@ -122,23 +85,25 @@ class SignupController: UIViewController {
         if let age = userInfoArray["age"] {
             userInfo = userInfo.appending("\(age)")
         }
+        userInfo = userInfo.appending("\n")
         print(userInfo)
         return userInfo
     }
     
-    func readFile() {
-        let fileURLProject = Bundle.main.path(forResource: "hello", ofType: "txt")
-        //let fileURLProject = Bundle.main.path(forResource: "hello", ofType: "txt")
-        print("fileurl: \(String(describing: fileURLProject))")
-        var readString = ""
-        do {
-            readString = try String(contentsOfFile: fileURLProject!, encoding: String.Encoding.utf8)
-        } catch let error as NSError {
-            print("Failed to read file")
-            print(error)
-        }
-        print(readString)
-    }
+// read local file
+//    func readFile() {
+//        let fileURLProject = Bundle.main.path(forResource: "hello", ofType: "txt")
+//        //let fileURLProject = Bundle.main.path(forResource: "hello", ofType: "txt")
+//        print("fileurl: \(String(describing: fileURLProject))")
+//        var readString = ""
+//        do {
+//            readString = try String(contentsOfFile: fileURLProject!, encoding: String.Encoding.utf8)
+//        } catch let error as NSError {
+//            print("Failed to read file")
+//            print(error)
+//        }
+//        print(readString)
+//    }
 
     @IBAction func signupBackToLogin(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueSignupToLogin", sender: self)

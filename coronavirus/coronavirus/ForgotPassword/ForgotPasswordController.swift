@@ -9,21 +9,30 @@
 import UIKit
 
 class ForgotPasswordController: UIViewController {
+    var coronavirus = Coronavirus()
     
     @IBOutlet weak var EmailTextField: UITextField!
-    func provideEmail() -> String {
-        return EmailTextField.text!
-    }
     
     @IBAction func backToLogin(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueForgotToLogin", sender: self)
     }
     
+    @IBOutlet weak var warning: UILabel!
+    var warningMsg = "" {
+        didSet {
+            warning.text = "\(warningMsg)"
+        }
+    }
+    
     @IBAction func resetPassword(_ sender: UIButton) {
-        let email = provideEmail()
-        print ("reset password: \(email)")
-        // if email in database, send reset link
-        // else, warning message "email is not registered"
+        let email = EmailTextField.text!
+        let verifyEmail = coronavirus.checkEmail(Email: email)
+        if verifyEmail == false {
+            warningMsg = "* This email is not registered"
+        } else {
+            // TO DO: send reset link
+            print("will send reset email")
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
