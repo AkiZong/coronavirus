@@ -9,7 +9,7 @@
 import UIKit
 
 class GreetingController: UIViewController {
-    
+    var coronavirus = Coronavirus()
     
     @IBAction func greetingBackToLogin(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueGreetingToSignup", sender: self)
@@ -33,6 +33,8 @@ class GreetingController: UIViewController {
         } else {
             greetingWord = "Evining"
         }
+        let currentUser = coronavirus.getCurrentUser()
+        greetingWord = greetingWord.appending(" " + currentUser.firstName)
     }
     
     override func viewDidLoad() {

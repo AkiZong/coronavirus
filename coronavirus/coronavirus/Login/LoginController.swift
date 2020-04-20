@@ -28,6 +28,8 @@ class LoginController: UIViewController {
         // check if email and password already in database?
         let correntCredentials = coronavirus.checkCredentials(email: email, password: password)
         if correntCredentials == true {
+            let userInfo = coronavirus.getUserInfo(Email: email)
+            coronavirus.setCurrentUser(FirstName: userInfo["firstName"]!, LastName: userInfo["lastName"]!, Email: userInfo["email"]!, Password: userInfo["password"]!, Sex: userInfo["sex"]!, Age: userInfo["age"]!)
             self.performSegue(withIdentifier: "segueLoginToGreeting", sender: self)
         } else {
             warningMsg = "* Wrong email or password"

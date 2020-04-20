@@ -17,13 +17,13 @@ struct User {
     var sex = ""
     var age = ""
     
-    init(firstName: String, lastName: String, email: String, password: String, password2: String, sex: String, age: String) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
-        self.password = password
-        self.password2 = password2
-        self.sex = sex
-        self.age = age
-    }
+//    init(firstName: String, lastName: String, email: String, password: String, password2: String, sex: String, age: String) {
+//        self.firstName = firstName
+//        self.lastName = lastName
+//        self.email = email
+//        self.password = password
+//        self.password2 = password2
+//        self.sex = sex
+//        self.age = age
+//    }
 }
