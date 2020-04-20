@@ -16,7 +16,8 @@ class Coronavirus {
         do {
             let allUserInfo = try String(contentsOf: fileUrl, encoding: .utf8)
             let infoString = allUserInfo.components(separatedBy: .newlines)
-            for line in infoString {
+            for i in 1..<infoString.count-1 {
+                let line = infoString[i]
                 let currentUser = line.components(separatedBy: ",")
                 if currentUser[2] == e, currentUser[3] == pwd {
                     return true

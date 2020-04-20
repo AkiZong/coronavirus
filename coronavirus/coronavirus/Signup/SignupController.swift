@@ -62,7 +62,9 @@ class SignupController: UIViewController {
             let newUserInfoDict: Dictionary<String,String> = ["firstName": firstName, "lastName": lastName, "email": email, "password": password, "sex": sex, "age": String(age)]
             let newUserInfo: String = parseUserInfo(userInfo: newUserInfoDict)
             coronavirus.writeToCSV(fileName: "allUsers.csv", userInfo: newUserInfo)
+            self.performSegue(withIdentifier: "segueSignupToLogin", sender: self)
         }
+        
     }
     
     func parseUserInfo(userInfo userInfoArray: Dictionary<String, String>) -> String {
